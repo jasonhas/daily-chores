@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content"
+import BaseLayout from "../layouts/BaseLayout.astro"
+import { Image } from 'astro:assets'
+import HeroImage from '../assets/newsletter-printing.png'
+const pageTitle = "Home Page"
+import PostImage from '../assets/hand_holding_sticker_sheet.png'
+const allPosts = await getCollection("posts")
+
+const sortedPosts = allPosts.sort((a,b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate))
+---
+
+<BaseLayout pageTitle={pageTitle}>
+
+	<!-- <div class="hero bg-base-200 min-h-screen">
+		<div class="hero-content flex-col lg:flex-row">
+		  <img
+			src={HeroImage.src}
+			class="w-full rounded-lg shadow-2xl h-auto" />
+		  <div>
+			<h1 class="text-5xl font-bold">Box Office News!</h1>
+			<p class="py-6">
+			  Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+			  quasi. In deleniti eaque aut repudiandae et a id nisi.
+			</p>
+			<button class="btn btn-primary">Get Started</button>
+		  </div>
+		</div>
+	  </div> -->
+
+	<div class="">
+		<div class="hero bg-base-200 min-h-fit py-8">
+			<div class="max-w-5xl mx-auto hero-content flex-col gap-12 lg:flex-row">
+			<img src={HeroImage.src} alt="Man working on Newsletter"} class="rounded-lg shadow-2xl w-full object-cover">
+			<div>
+				<h1 class="text-5xl font-bold">Join My Newsletter</h1>
+				<p class="py-6">
+				Stay up to date with everything I'm doing.
+				</p>
+				<button class="btn btn-primary">Sign Up</button>
+			</div>
+			</div>
+		</div>
+<!-- Card Section -->
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto py-10">
+			{sortedPosts.map((post,index) => 
+				index < 4 && (
+				<div class="card bg-slate-100 image-full shadow-xl">
+				<figure>
+				  <Image
+					src={post.data.image}
+					alt={post.data.alt} />
+				</figure>
+				<div class="card-body">
+				  <h2 class="card-title">{post.data.title}</h2>
+				  <p>{post.data.description}</p>
+				  <p>{post.data.pubDate.toUTCString().slice(0,16)}</p>
+				  <div class="card-actions justify-end">
+					<a href={`/posts/${post.slug}/`}><button class="btn btn-primary">Read More</button></a>
+				  </div>
+				</div>
+			</div>
+				)
+			)}
+			
+		</div>
+	</div>
+
+
+
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Profit and Loss"
+import HeroImage from '../assets/Profit_Loss.png'
+---
+
+<BaseLayout pageTitle={pageTitle}>
+
+    <div class="max-w-5xl mx-auto px-4 md:px-0">
+
+        <div class="hero min-h-full py-8">
+			<div class="max-w-5xl mx-auto hero-content flex-col gap-12 lg:flex-row">
+			<img src={HeroImage.src} alt="Man working on Newsletter"} class="object-cover w-full rounded-lg shadow-2xl">
+			<div>
+				<h1 class="text-5xl font-bold" transition:animate="slide">{pageTitle}</h1>
+                <blockquote class="text-xl italic font-semibold text-gray-900 py-6">
+                    <p>"Money won’t create success, the freedom to make it will." — Nelson Mandela</p>
+                </blockquote>
+			</div>
+			</div>
+		</div>
+
+        <p>This is where all the income and expenses will go.</p>
+    </div>
+</BaseLayout>

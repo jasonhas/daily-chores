@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content"
+import BaseLayout from "../layouts/BaseLayout.astro"
+const allPosts = await getCollection("posts")
+
+const sortedPosts = allPosts.sort((a,b) => Date.parse(b.data.pubDate) - Date.parse(a.data.pubDate))
+const pageTitle = "The Blog"
+---
+<BaseLayout pageTitle={pageTitle}>
+    <div class="max-w-5xl mx-auto px-4 md:px-0">
+        <h1 class="text-2xl font-bold text-center py-8" transition:animate="slide">{pageTitle}</h1>
+        <p class="text-center py-4">All Posts in Chronological Order</p>
+        <div class="max-w-xl mx-auto">
+            <ul class="">
+            {allPosts.map((post) => <li><a class="hover:text-blue-500 font-semibold text-xl" href={`/posts/${post.slug}/`}>{post.data.title}</a>  - {post.data.pubDate.toUTCString().slice(0,16)}</li>)
+            </ul> 
+        </div>
+    </div>
+</BaseLayout>
